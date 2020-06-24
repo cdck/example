@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_wifi_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".wifi.WifiActivity">
+
+    <Button
+        android:id="@+id/scan_wifi"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="刷新"
+        app:layout_constraintEnd_toStartOf="@+id/clean_conf"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/clean_conf"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="清空配置wifi"
+        app:layout_constraintEnd_toStartOf="@+id/clean_log"
+        app:layout_constraintStart_toEndOf="@+id/scan_wifi"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/clean_log"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="清空日志"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/clean_conf"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/wifi_rv"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/scroll"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scan_wifi" />
+
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/wifi_rv"
+        app:layout_constraintTop_toBottomOf="@+id/scan_wifi">
+
+        <TextView
+            android:id="@+id/wifi_log"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/item_wifi_connected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/wifi_connection_s"
+        app:layout_constraintBottom_toBottomOf="@+id/item_wifi_bandwidth"
+        app:layout_constraintEnd_toStartOf="@+id/item_wifi_ssid"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/item_wifi_ssid" />
+
+    <TextView
+        android:id="@+id/item_wifi_ssid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/item_wifi_connected"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="SSID：TOTOLINK_5G" />
+
+    <TextView
+        android:id="@+id/item_wifi_bssid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/item_wifi_connected"
+        app:layout_constraintTop_toBottomOf="@+id/item_wifi_ssid"
+        tools:text="BSSID：f4:28:53:23:7a:f0" />
+
+    <TextView
+        android:id="@+id/item_wifi_capabilities"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/item_wifi_connected"
+        app:layout_constraintTop_toBottomOf="@+id/item_wifi_bssid"
+        tools:text="加密类型：[WPA-PSK-CCMP][ESS]" />
+
+    <TextView
+        android:id="@+id/item_wifi_frequency"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/item_wifi_connected"
+        app:layout_constraintTop_toBottomOf="@+id/item_wifi_capabilities"
+        tools:text="频率：5785" />
+
+    <TextView
+        android:id="@+id/item_wifi_bandwidth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/item_wifi_connected"
+        app:layout_constraintTop_toBottomOf="@+id/item_wifi_frequency"
+        tools:text="带宽：40 MHZ" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,9 +6,14 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
+import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.net.wifi.ScanResult
+import android.net.wifi.SupplicantState
+import android.net.wifi.WifiConfiguration
 import android.net.wifi.WifiManager
+import android.net.wifi.WifiManager.ERROR_AUTHENTICATING
+import android.net.wifi.WifiManager.EXTRA_NEW_STATE
 import android.os.Bundle
 import android.util.Log.*
 import android.view.Gravity
@@ -108,9 +113,13 @@ class WifiActivity : AppCompatActivity(), View.OnClickListener {
         }
         inflater.findViewById<Button>(R.id.pop_wifi_connect).setOnClickListener {
             val pwd = pop_wifi_pwd.text.toString().trim()
-            tryConnectSSID = "\"${scanResult.SSID}\""
-            WifiUtil.connectWifi(wifiManager, scanResult.SSID, pwd, scanResult.capabilities)
-            pop.dismiss()
+            if (pwd.isNotEmpty() && pwd.length >= 8) {
+                tryConnectSSID = "\"${scanResult.SSID}\""
+                WifiUtil.connectWifi(wifiManager, scanResult.SSID, pwd, scanResult.capabilities)
+                pop.dismiss()
+            } else {
+                toast("密码不能为空或小于8位数")
+            }
         }
         pop.showAtLocation(activity_wifi_root, Gravity.CENTER, 0, 0)
     }
@@ -125,10 +134,18 @@ class WifiActivity : AppCompatActivity(), View.OnClickListener {
                 wifi_log.text = wifiLog
             }
             R.id.clean_conf -> {
-                val a = wifiManager.configuredNetworks.iterator()
-                while (a.hasNext()) {
-                    wifiManager.removeNetwork(a.next().networkId)
+                wifiManager.configuredNetworks.forEach {
+                    i(TAG, "将要删除的网络ID=${it.networkId}")
+                    val removed = wifiManager.removeNetwork(it.networkId)
+                    if (!removed) {
+                        wifiLog += "无法删除${it.SSID}网络\n"
+                    }
                 }
+//                val a = wifiManager.configuredNetworks.iterator()
+//                while (a.hasNext()) {
+//                    i(TAG,"将要删除的网络ID=${a.next().networkId}")
+//                    wifiManager.removeNetwork(a.next().networkId)
+//                }
                 if (wifiManager.configuredNetworks.size == 0) {
                     wifiLog += "清空了所有配置网络\n"
                     wifi_log.text = wifiLog
@@ -175,6 +192,7 @@ class WifiActivity : AppCompatActivity(), View.OnClickListener {
         filter.addAction("android.net.wifi.LINK_CONFIGURATION_CHANGED")
         //广播意图操作，指示Wi-Fi连接状态已更改。 一个额外功能以{@link android.net.NetworkInfo}对象的形式提供了新状态。
         filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION)
+        filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION)
         registerReceiver(receiver, filter)
     }
 
@@ -223,7 +241,6 @@ class WifiActivity : AppCompatActivity(), View.OnClickListener {
                     WifiManager.NETWORK_IDS_CHANGED_ACTION -> {
                         i(TAG, "配置的网络的网络ID可能已更改")
                         //配置的网络的网络ID可能已更改。
-
                     }
                     WifiManager.NETWORK_STATE_CHANGED_ACTION -> {
                         //配置的网络的网络ID可能已更改。
@@ -299,14 +316,31 @@ class WifiActivity : AppCompatActivity(), View.OnClickListener {
                         refresh()
                     }
                     "android.net.wifi.CONFIGURED_NETWORKS_CHANGE" -> {
+                        //操作了 wifiManager.configuredNetworks 中的WiFi配置后会收到该广播
+                        val isMultipleChanged = intent.getBooleanExtra("multipleChanges", false)
+                        if (!isMultipleChanged) {
+                            val conf =
+                                intent.getParcelableExtra("wifiConfiguration") as WifiConfiguration
+                            i(TAG, "网络配置发生改变：${conf.toString()}")
+                        }
+
+                    }
+                    WifiManager.SUPPLICANT_STATE_CHANGED_ACTION -> {
+                        val a = intent.getParcelableExtra(EXTRA_NEW_STATE) as SupplicantState
+                        val b = intent.getIntExtra(WifiManager.EXTRA_SUPPLICANT_ERROR, 111)
+                        if (b == ERROR_AUTHENTICATING) {
+                            wifiLog + "验证失败\n"
+                        }
+                    }
+                    ConnectivityManager.CONNECTIVITY_ACTION -> {
 
                     }
                     else -> {
 
                     }
                 }
+                wifi_log.text = wifiLog
             }
-            wifi_log.text = wifiLog
         }
     }
 }

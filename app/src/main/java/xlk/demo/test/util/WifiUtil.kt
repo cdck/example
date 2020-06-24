@@ -20,6 +20,7 @@ object WifiUtil {
         // 1、注意热点和密码均包含引号，此处需要需要转义引号
         val ssid = "\"$name\""
         val password = "\"$pwd\""
+        i("connectWifi","WiFi名称和密码 ssid：$ssid password:$password")
         //2、配置wifi信息
         val conf = WifiConfiguration()
         conf.allowedAuthAlgorithms.clear()
@@ -30,6 +31,7 @@ object WifiUtil {
         conf.SSID = ssid
         when {
             capabilities.contains("WPA") || capabilities.contains("WPA2") -> {
+                i("connectWifi","WPA")
                 //基本上都会走这一步
                 conf.preSharedKey = password
                 //conf.hiddenSSID = true;
@@ -39,17 +41,19 @@ object WifiUtil {
                 conf.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.WPA_PSK)
                 conf.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.TKIP)
                 conf.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.CCMP)
-                conf.allowedProtocols.set(WifiConfiguration.Protocol.RSN);
+                conf.allowedProtocols.set(WifiConfiguration.Protocol.RSN)
                 conf.allowedProtocols.set(WifiConfiguration.Protocol.WPA)
                 conf.status = WifiConfiguration.Status.ENABLED
             }
             capabilities.contains("WEP") -> {
-                conf.wepKeys[0] = password;
+                i("connectWifi","WEP")
+                conf.wepKeys[0] = password
                 conf.wepTxKeyIndex = 0;
                 conf.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE)
                 conf.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.WEP40)
             }
             else -> {
+                i("connectWifi","Other")
                 conf.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE)
             }
         }

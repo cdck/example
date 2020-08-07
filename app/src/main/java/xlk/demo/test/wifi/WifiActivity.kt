@@ -73,9 +73,9 @@ class WifiActivity : AppCompatActivity(), View.OnClickListener {
             adapter!!.notifyDataSetChanged()
         }
         adapter!!.setItemClickListentr(object : RvItemClick {
-            override fun onItemClick(position: Int, obj: Any) {
+            override fun onItemClick(position: Int, vararg obj: Any) {
                 position.toString().toast()
-                val scanResult = obj as ScanResult
+                val scanResult = obj[0] as ScanResult
                 showPop(scanResult)
             }
         })
@@ -192,7 +192,6 @@ class WifiActivity : AppCompatActivity(), View.OnClickListener {
         filter.addAction("android.net.wifi.LINK_CONFIGURATION_CHANGED")
         //广播意图操作，指示Wi-Fi连接状态已更改。 一个额外功能以{@link android.net.NetworkInfo}对象的形式提供了新状态。
         filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION)
-        filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION)
         registerReceiver(receiver, filter)
     }
 
@@ -230,12 +229,12 @@ class WifiActivity : AppCompatActivity(), View.OnClickListener {
                     }
                     WifiManager.SCAN_RESULTS_AVAILABLE_ACTION -> {
                         val results = it.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, false)
-                        i(TAG, "接入点扫描已完成，并且结果可用 是否扫描成功：$results")
+                        wifiLog += "接入点扫描已完成，并且结果可用 是否扫描成功：$results \n"
                         if (results && wifiManager.isWifiEnabled) {
-                            i(TAG, "扫描到的WiFi个数：${wifiManager.scanResults.size}")
+                            wifiLog += "扫描到的WiFi个数：${wifiManager.scanResults.size} \n"
                             refresh()
                         } else {
-                            i(TAG, "扫描失败")
+                            wifiLog += "扫描失败\n"
                         }
                     }
                     WifiManager.NETWORK_IDS_CHANGED_ACTION -> {
@@ -331,9 +330,6 @@ class WifiActivity : AppCompatActivity(), View.OnClickListener {
                         if (b == ERROR_AUTHENTICATING) {
                             wifiLog + "验证失败\n"
                         }
-                    }
-                    ConnectivityManager.CONNECTIVITY_ACTION -> {
-
                     }
                     else -> {
 

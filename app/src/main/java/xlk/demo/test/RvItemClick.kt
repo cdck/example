@@ -6,5 +6,5 @@ package xlk.demo.test
  * @desc RecyclerView item点击监听接口
  */
 interface RvItemClick {
-    fun onItemClick(position: Int, obj: Any)
+    fun onItemClick(position: Int, vararg obj: Any)
 }

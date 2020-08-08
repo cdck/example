@@ -26,7 +26,7 @@ public class CustomView extends View {
     /**
      * default Paint.
      */
-    protected Paint mDeafultPaint = new Paint();
+    protected Paint mDefaultPaint = new Paint();
 
     /**
      * default TextPaint
@@ -53,5 +53,6 @@ public class CustomView extends View {
         super.onSizeChanged(w, h, oldw, oldh);
         mViewWidth = w;
         mViewHeight = h;
+        System.out.println(getClass().getName() + " 当前view的宽高：" + mViewWidth + "," + mViewHeight);
     }
 }

@@ -15,6 +15,9 @@ import android.view.MotionEvent;
  * @date 2020/8/7 16:49
  * @desc https://www.gcssloop.com/customview/touch-matrix-region
  * 需要关闭硬件加速 android:hardwareAccelerated="false"
+ *
+ * 角度	两条射线从圆心向圆周射出，形成一个夹角和夹角正对的一段弧。当这段弧长正好等于圆周长的360分之一时，两条射线的夹角的大小为1度.
+ * 弧度	两条射线从圆心向圆周射出，形成一个夹角和夹角正对的一段弧。当这段弧长正好等于圆的半径时，两条射线的夹角大小为1弧度.
  */
 public class RemoteControlMenu extends CustomView {
     private final String TAG = "RemoteControlMenu-->";
@@ -56,8 +59,8 @@ public class RemoteControlMenu extends CustomView {
         right = new Region();
         center = new Region();
 
-        mDeafultPaint.setColor(mDefauColor);
-        mDeafultPaint.setAntiAlias(true);
+        mDefaultPaint.setColor(mDefauColor);
+        mDefaultPaint.setAntiAlias(true);
 
         mMapMatrix = new Matrix();
 
@@ -79,6 +82,8 @@ public class RemoteControlMenu extends CustomView {
 
         int sr = minWidth / 4;
         RectF smallCircle = new RectF(-sr, -sr, sr, sr);
+
+
 
         float bigSweepAngle = 84;
         float smallSweepAngle = -80;
@@ -181,26 +186,26 @@ public class RemoteControlMenu extends CustomView {
         }
 
         // 绘制默认颜色
-        canvas.drawPath(center_p, mDeafultPaint);
-        canvas.drawPath(up_p, mDeafultPaint);
-        canvas.drawPath(right_p, mDeafultPaint);
-        canvas.drawPath(down_p, mDeafultPaint);
-        canvas.drawPath(left_p, mDeafultPaint);
+        canvas.drawPath(center_p, mDefaultPaint);
+        canvas.drawPath(up_p, mDefaultPaint);
+        canvas.drawPath(right_p, mDefaultPaint);
+        canvas.drawPath(down_p, mDefaultPaint);
+        canvas.drawPath(left_p, mDefaultPaint);
 
         // 绘制触摸区域颜色
-        mDeafultPaint.setColor(mTouchedColor);
+        mDefaultPaint.setColor(mTouchedColor);
         if (currentFlag == CENTER) {
-            canvas.drawPath(center_p, mDeafultPaint);
+            canvas.drawPath(center_p, mDefaultPaint);
         } else if (currentFlag == UP) {
-            canvas.drawPath(up_p, mDeafultPaint);
+            canvas.drawPath(up_p, mDefaultPaint);
         } else if (currentFlag == RIGHT) {
-            canvas.drawPath(right_p, mDeafultPaint);
+            canvas.drawPath(right_p, mDefaultPaint);
         } else if (currentFlag == DOWN) {
-            canvas.drawPath(down_p, mDeafultPaint);
+            canvas.drawPath(down_p, mDefaultPaint);
         } else if (currentFlag == LEFT) {
-            canvas.drawPath(left_p, mDeafultPaint);
+            canvas.drawPath(left_p, mDefaultPaint);
         }
-        mDeafultPaint.setColor(mDefauColor);
+        mDefaultPaint.setColor(mDefauColor);
     }
 
     public void setListener(MenuListener listener) {

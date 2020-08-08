@@ -28,7 +28,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ui.activity.CustomUIActivity"
+            android:name=".LaunchActivity"
             android:hardwareAccelerated="false" />
         <activity android:name=".annotation.Mp3Activity" />
         <activity android:name=".tbs.WebActivity" />
@@ -38,7 +38,8 @@
         <activity android:name=".wifi.WifiActivity" />
         <activity android:name=".camera2.Camera2Activity" />
         <activity android:name=".media.PlayActivity" />
-        <activity android:name=".LaunchActivity">
+        <activity android:name=".ui.activity.CustomUIActivity"
+            android:hardwareAccelerated="false">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

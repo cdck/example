@@ -61,8 +61,11 @@ object UriUtil {
                         val split = docId.split(":").toTypedArray()
                         val type = split[0]
                         if ("primary".equals(type, ignoreCase = true)) {
-                            path = Environment.getExternalStorageDirectory()
-                                .toString() + "/" + split[1]
+                            //文件名可能是有冒号
+                            path=Environment.getExternalStorageDirectory()
+                                .toString() + "/" +docId.substring(7)
+//                            path = Environment.getExternalStorageDirectory()
+//                                .toString() + "/" + split[1]
                             return path
                         }
                     } else if (isDownloadsDocument(uri)) {
@@ -117,7 +120,7 @@ object UriUtil {
         val projection = arrayOf(column)
         try {
             cursor =
-                context.contentResolver.query(uri, projection, selection, selectionArgs, null)
+                context.contentResolver.query(uri!!, projection, selection, selectionArgs, null)
             if (cursor != null && cursor.moveToFirst()) {
                 val column_index = cursor.getColumnIndexOrThrow(column)
                 return cursor.getString(column_index)

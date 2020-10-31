@@ -1,17 +1,16 @@
 package xlk.demo.test
 
+import android.app.Activity
 import android.app.Application
 import android.content.Context
-import android.util.Log
-import android.util.Log.d
-import android.util.Log.i
-import com.tencent.smtt.export.external.TbsCoreSettings
+import android.os.Bundle
 import com.tencent.smtt.sdk.QbSdk
 import com.tencent.smtt.sdk.QbSdk.PreInitCallback
 import com.tencent.smtt.sdk.TbsDownloader
 import com.tencent.smtt.sdk.TbsListener
+import xlk.demo.test.util.log
 import xlk.demo.test.util.longToast
-import xlk.demo.test.util.toast
+import kotlin.system.exitProcess
 
 
 /**
@@ -21,22 +20,58 @@ import xlk.demo.test.util.toast
  */
 class MyApplication : Application() {
     companion object {
-        lateinit var context: Context
-        val TAG = "MyApplication"
+        lateinit var mContext: Context
+        lateinit var activitys: List<Activity>
         var successful = false
     }
 
     override fun onCreate() {
         super.onCreate()
-        context = applicationContext
+        mContext = applicationContext
         loadX5()
+        activitys = listOf()
+        registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
+            override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
+                "添加${activity.localClassName}".log()
+                activitys = activitys + activity
+            }
+
+            override fun onActivityDestroyed(activity: Activity) {
+                "删除${activity.localClassName}".log()
+                activitys = activitys - activity
+            }
+
+            override fun onActivityPaused(activity: Activity?) {
+            }
+
+            override fun onActivityResumed(activity: Activity?) {
+            }
+
+            override fun onActivityStarted(activity: Activity?) {
+            }
+
+            override fun onActivitySaveInstanceState(activity: Activity?, outState: Bundle?) {
+            }
+
+            override fun onActivityStopped(activity: Activity?) {
+            }
+
+        })
     }
 
+    fun exitApp() {
+        activitys.forEach {
+            "${it.localClassName}".log()
+            it.finish()
+        }
+        "结束进程".log()
+        exitProcess(0)
+    }
 
     var cb: PreInitCallback = object : PreInitCallback {
         override fun onCoreInitFinished() {
             //x5内核初始化完成回调接口，此接口回调并表示已经加载起来了x5，有可能特殊情况下x5内核加载失败，切换到系统内核。
-            i(TAG, "x5内核 onCoreInitFinished-->")
+            "x5内核 onCoreInitFinished-->".log()
         }
 
         override fun onViewInitFinished(b: Boolean) {
@@ -44,44 +79,32 @@ class MyApplication : Application() {
             //x5內核初始化完成的回调，为true表示x5内核加载成功，否则表示x5内核加载失败，会自动切换到系统内核。
             if (b) "X5内核加载成功".longToast() else "X5内核加载失败".longToast()
             successful = b
-            d(
-                TAG,
-                "onViewInitFinished: 加载X5内核是否成功: $b"
-            )
+            "onViewInitFinished: 加载X5内核是否成功: $b".log()
         }
     }
 
-    fun loadX5() {
+    private fun loadX5() {
         val canLoadX5 =
-            QbSdk.canLoadX5(context)
-        i(TAG, "x5内核  是否可以加载X5内核 -->$canLoadX5")
+            QbSdk.canLoadX5(mContext)
+        "x5内核  是否可以加载X5内核 -->$canLoadX5".log()
         if (canLoadX5) {
             initX5()
         } else {
             QbSdk.setDownloadWithoutWifi(true)
             QbSdk.setTbsListener(object : TbsListener {
                 override fun onDownloadFinish(i: Int) {
-                    d(
-                        TAG,
-                        "x5内核 onDownloadFinish -->下载X5内核：$i"
-                    )
+                    "x5内核 onDownloadFinish -->下载X5内核：$i".log()
                 }
 
                 override fun onInstallFinish(i: Int) {
-                    d(
-                        TAG,
-                        "x5内核 onInstallFinish -->安装X5内核：$i"
-                    )
+                    "x5内核 onInstallFinish -->安装X5内核：$i".log()
                     if (i == TbsListener.ErrorCode.INSTALL_SUCCESS_AND_RELEASE_LOCK) {
                         initX5()
                     }
                 }
 
                 override fun onDownloadProgress(i: Int) {
-                    d(
-                        TAG,
-                        "x5内核 onDownloadProgress -->下载X5内核：$i"
-                    )
+                    "x5内核 onDownloadProgress -->下载X5内核：$i".log()
                 }
             })
             Thread(Runnable {
@@ -94,14 +117,14 @@ class MyApplication : Application() {
 //                    // 启动下载
 //                    TbsDownloader.startDownload(mContext);
 //                }
-                TbsDownloader.startDownload(context)
+                TbsDownloader.startDownload(mContext)
             }).start()
         }
     }
 
     fun initX5() {
         //目前线上sdk存在部分情况下initX5Enviroment方法没有回调，您可以不用等待该方法回调直接使用x5内核。
-        QbSdk.initX5Environment(context, cb)
+        QbSdk.initX5Environment(mContext, cb)
         //如果您需要得知内核初始化状态，可以使用QbSdk.preinit接口代替
 //        QbSdk.preInit(applicationContext, cb);
     }

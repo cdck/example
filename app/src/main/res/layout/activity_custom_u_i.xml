@@ -7,27 +7,43 @@
     android:orientation="horizontal"
     tools:context=".ui.activity.CustomUIActivity">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/ui_rv"
+        android:layout_width="200dp"
+        android:layout_height="match_parent" />
+
+    <xlk.demo.test.ui.CustomClock
+        android:id="@+id/custom_clock"
+        android:layout_width="300dp"
+        android:visibility="gone"
+        android:layout_height="300dp" />
+
+    <xlk.demo.test.ui.CustomMenu
+        android:id="@+id/custom_menu"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:visibility="visible"
+        app:colorPressed="#00BCD4"
+        app:colorUnPressed="#8BC34A"
+        app:count="300"
+        app:spacingAngle="1" />
+
     <xlk.demo.test.ui.RemoteControlMenu
         android:id="@+id/remote_custom_menu"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:visibility="gone"
-        android:background="#D1EEF1" />
+        android:background="#D1EEF1"
+        android:visibility="gone" />
 
-    <xlk.demo.test.ui.CustomMenu
-        android:id="@+id/custom_menu"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:colorUnPressed="#000000"
-        app:colorPressed="#FFFF00"
-        app:spacingAngle="1"
-        app:count="280" />
-
-    <xlk.demo.test.ui.TestView
+    <xlk.demo.test.ui.CustomView3
+        android:id="@+id/custom3_view"
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:visibility="gone"
-        android:background="#C9E7D2" />
-
+        app:areaClickColor="#5a5219"
+        app:areaColor="#266c16"
+        app:centreClickColor="#e413ff"
+        app:centreColor="#3cdbd6"
+        app:numbers="5" />
 
 </LinearLayout>

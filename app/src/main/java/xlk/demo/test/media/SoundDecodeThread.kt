@@ -51,6 +51,7 @@ class SoundDecodeThread(private val path: String) : Thread() {
                     break
                 }
             }
+
             if (mediaCodec == null) {
                 Log.e(TAG, "Can't find video info!")
                 return

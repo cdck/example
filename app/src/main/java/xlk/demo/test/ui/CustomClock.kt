@@ -20,7 +20,7 @@ import java.util.*
  * https://www.jianshu.com/p/c2abd6226897
  */
 class CustomClock : View {
-    private var paint: Paint? = null
+    private lateinit var paint: Paint
     private var mSecondDegree =0f//秒针的度数 = 0f
     private var mMinDegree =0f//分针的度数 = 0f
     private var mHourDegree =0f//时针的度数 = 0f
@@ -126,10 +126,10 @@ class CustomClock : View {
 
     private fun init() {
         paint = Paint()
-        paint!!.isAntiAlias = true
-        paint!!.color = Color.BLACK
-        paint!!.style = Paint.Style.STROKE
-        paint!!.strokeWidth = 0f
+        paint.isAntiAlias = true
+        paint.color = Color.BLACK
+        paint.style = Paint.Style.STROKE
+        paint.strokeWidth = 0f
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -144,12 +144,12 @@ class CustomClock : View {
         val width = width
         val height = height
         val radius = width / 3
-        paint!!.strokeWidth = 5f
+        paint.strokeWidth = 5f
         //画出时钟的外圆
         canvas.drawCircle(width / 2.toFloat(), height / 2.toFloat(), radius.toFloat(), paint)
         //时钟的中心点
         canvas.drawPoint(width / 2.toFloat(), height / 2.toFloat(), paint)
-        paint!!.strokeWidth = 1f
+        paint.strokeWidth = 1f
         //将坐标系原点移动到圆心
         canvas.translate(width / 2.toFloat(), height / 2.toFloat())
         //绘制每秒的刻度线，
@@ -166,7 +166,7 @@ class CustomClock : View {
             //画完当前的刻度线，就将画布进行旋转一度
             canvas.rotate(1f)
         }
-        paint!!.textSize = 20f
+        paint.textSize = 20f
         //绘制每小时展示的数字，1点 2点...
         for (i in 0..11) {
             if (i == 0) {
@@ -181,25 +181,25 @@ class CustomClock : View {
     private fun drawNeedle(canvas: Canvas) {
         /** **** **  秒针  ** ****  */
         canvas.save() //保存状态
-        paint!!.color = Color.RED
-        paint!!.style = Paint.Style.STROKE
-        paint!!.strokeWidth = 2f
+        paint.color = Color.RED
+        paint.style = Paint.Style.STROKE
+        paint.strokeWidth = 2f
         canvas.rotate(mSecondDegree) //秒针进行旋转mSecondDegree度
         //其实坐标点（0,0）终点坐标（0，-190），这里的190为秒针长度
         canvas.drawLine(0f, 0f, 0f, -190f, paint)
         canvas.restore() //回滚到之前的状态
         /** **** **  分针  ** ****  */
         canvas.save() //保存状态
-        paint!!.color = Color.BLACK
-        paint!!.style = Paint.Style.STROKE
-        paint!!.strokeWidth = 4f
+        paint.color = Color.BLACK
+        paint.style = Paint.Style.STROKE
+        paint.strokeWidth = 4f
         canvas.rotate(mMinDegree)
         canvas.drawLine(0f, 0f, 0f, -130f, paint)
         canvas.restore() //回滚到之前的状态
         /** **** **  时针  ** ****  */
         canvas.save() //保存状态
-        paint!!.style = Paint.Style.STROKE
-        paint!!.strokeWidth = 7f
+        paint.style = Paint.Style.STROKE
+        paint.strokeWidth = 7f
         canvas.rotate(mHourDegree)
         canvas.drawLine(0f, 0f, 0f, -90f, paint)
         canvas.restore() //回滚到之前的状态

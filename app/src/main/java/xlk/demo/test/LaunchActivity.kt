@@ -6,43 +6,50 @@ import android.content.Intent.ACTION_OPEN_DOCUMENT
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log.*
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hjq.permissions.OnPermission
 import com.hjq.permissions.XXPermissions
-import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_launch.*
 import xlk.demo.test.MyApplication.Companion.successful
 import xlk.demo.test.annotation.Mp3Activity
 import xlk.demo.test.camera2.Camera2Activity
 import xlk.demo.test.camera2.Camera2Util
+import xlk.demo.test.itext.ITextActivity
+import xlk.demo.test.material.design.DesignActivity
 import xlk.demo.test.media.PlayActivity
 import xlk.demo.test.media.VideoPlayView.strVideo
+import xlk.demo.test.navigation.NavigationBarActivity
+import xlk.demo.test.rxjava.RxJavaActivity
 import xlk.demo.test.tbs.TbsFileActivity
 import xlk.demo.test.tbs.WebActivity
 import xlk.demo.test.tree.TreeListActivity
 import xlk.demo.test.ui.activity.CustomUIActivity
+import xlk.demo.test.ui.activity.SeatActivity
 import xlk.demo.test.util.UriUtil
 import xlk.demo.test.util.toast
 import xlk.demo.test.wifi.WifiActivity
-import java.util.*
 
 class LaunchActivity : AppCompatActivity() {
     private val TAG = "LaunchActivity"
+    lateinit var activity: LaunchActivity
     private val data =
         arrayOf(
             "MediaCodec解码播放视频文件",
             "Wifi",
             "Camera2",
-            "列表视图",
+            "树形列表",
             "Tbs浏览文件",
             "X5浏览器",
             "播放动画",
-            "吐丝测试",
-            "自定义控件"
+            "RxJava",
+            "自定义控件",
+            "导航栏",
+            "测试重复点击",
+            "Material Design",
+            "IText生成PDF",
+            "座位排布"
         )
-    lateinit var activity: LaunchActivity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,7 +80,6 @@ class LaunchActivity : AppCompatActivity() {
                 }
             })
     }
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -115,21 +121,13 @@ class LaunchActivity : AppCompatActivity() {
             }
             data[5] -> startActivity(Intent(activity, WebActivity::class.java))
             data[6] -> startActivity(Intent(activity, Mp3Activity::class.java))
-            data[7] -> {
-                Timer().schedule(object : TimerTask() {
-                    override fun run() {
-                        runOnUiThread {
-                            message += "B-"
-                            Toasty.success(this@LaunchActivity, message, Toast.LENGTH_LONG).show()
-                        }
-                    }
-                }, 0, 100)
-            }
+            data[7] -> startActivity(Intent(activity, RxJavaActivity::class.java))
             data[8] -> startActivity(Intent(activity, CustomUIActivity::class.java))
+            data[9] -> startActivity(Intent(activity, NavigationBarActivity::class.java))
+            data[10] -> startActivity(Intent(activity, JavaTestActivity::class.java))
+            data[11] -> startActivity(Intent(activity, DesignActivity::class.java))
+            data[12] -> startActivity(Intent(activity, ITextActivity::class.java))
+            data[13] -> startActivity(Intent(activity, SeatActivity::class.java))
         }
     }
-
-    lateinit var toast: Toast
-
-    var message: String = ""
 }

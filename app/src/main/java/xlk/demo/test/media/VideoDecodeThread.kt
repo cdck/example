@@ -79,7 +79,7 @@ class VideoDecodeThread(surface: Surface, path: String) :
                     val buffer =
                         mediaCodec!!.getInputBuffer(inIndex) //inputBuffers[inIndex];
                     val nSampleSize =
-                        mediaExtractor!!.readSampleData(buffer, 0) // 读取一帧数据至buffer中
+                        mediaExtractor!!.readSampleData(buffer!!, 0) // 读取一帧数据至buffer中
                     if (nSampleSize < 0) {
                         Log.d(
                             TAG,

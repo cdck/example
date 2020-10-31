@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".material.design.DesignActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:subtitle="Toolbar"
+            app:subtitleTextColor="@color/white"
+            app:title="AppBarLayout"
+            app:titleTextColor="@color/white" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/material_button"
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="12dp"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:translationZ="10dp"
+        android:padding="0dp"
+        android:text="Material Button"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:layout_gravity="end|center_vertical"
+        app:backgroundTint="#6D56FF"
+        app:cornerRadius="15dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/right_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="10dp"
+        android:src="@drawable/ic_volume"
+        android:visibility="gone"
+        app:fabSize="mini" />
+
+    <com.nightonke.boommenu.BoomMenuButton
+        android:id="@+id/bmb_simple_circle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|bottom"
+        android:translationZ="5dp" />
+
+    <com.nightonke.boommenu.BoomMenuButton
+        android:id="@+id/bmb_text_inside"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:translationZ="5dp" />
+
+    <com.nightonke.boommenu.BoomMenuButton
+        android:id="@+id/bmb_text_outside"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:translationZ="5dp" />
+
+    <!--    <androidx.cardview.widget.CardView-->
+    <!--        android:id="@+id/right_view"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="0dp"-->
+    <!--        android:background="#AC9DC9"-->
+    <!--        android:translationZ="10dp"-->
+    <!--        android:visibility="gone"-->
+    <!--        app:cardBackgroundColor="#FF5722"-->
+    <!--        app:cardCornerRadius="10dp"-->
+    <!--        app:cardElevation="5dp"-->
+    <!--        app:contentPadding="8dp"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintHorizontal_weight="5"-->
+    <!--        app:layout_constraintStart_toEndOf="@+id/rv"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/toolbar" />-->
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

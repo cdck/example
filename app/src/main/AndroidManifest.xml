@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="xlk.demo.test">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -7,7 +8,8 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <uses-feature android:name="android.hardware.camera" />
-    <uses-feature android:name="android.hardware.camera.autofocus" /> <!-- wifi -->
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -25,10 +27,20 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
+        android:theme="@style/MaterialTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".ui.activity.SeatActivity"></activity>
+        <activity android:name=".itext.ITextActivity" />
+        <activity android:name=".table.TableActivity" />
         <activity
-            android:name=".LaunchActivity"
+            android:name=".material.design.login.LoginActivity"
+            android:label="@string/title_activity_login" />
+        <activity android:name=".material.design.DesignActivity" />
+        <activity android:name=".JavaTestActivity" />
+        <activity android:name=".navigation.NavigationBarActivity" />
+        <activity android:name=".rxjava.RxJavaActivity" />
+        <activity
+            android:name=".ui.activity.CustomUIActivity"
             android:hardwareAccelerated="false" />
         <activity android:name=".annotation.Mp3Activity" />
         <activity android:name=".tbs.WebActivity" />
@@ -38,7 +50,8 @@
         <activity android:name=".wifi.WifiActivity" />
         <activity android:name=".camera2.Camera2Activity" />
         <activity android:name=".media.PlayActivity" />
-        <activity android:name=".ui.activity.CustomUIActivity"
+        <activity
+            android:name=".LaunchActivity"
             android:hardwareAccelerated="false">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -51,6 +64,7 @@
             android:name="com.tencent.smtt.export.external.DexClassLoaderProviderService"
             android:label="dexopt"
             android:process=":dexopt" />
+        <service android:name=".util.MyServer" />
     </application>
 
 </manifest>

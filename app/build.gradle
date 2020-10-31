@@ -1,14 +1,17 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'android-aspectjx'
 
 android {
-    compileSdkVersion 28
+    //编译SDK的版本
+    compileSdkVersion 29
+    buildToolsVersion = '29.0.1'
 
     defaultConfig {
         applicationId "xlk.demo.test"
         minSdkVersion 23
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
 
@@ -18,25 +21,78 @@ android {
 
     buildTypes {
         release {
+            //是否进行混淆
             minifyEnabled false
+            //混淆文件的位置
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+
+    //Java版本
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+//    // AOP 配置
+//    aspectjx {
+//        // 排除一些第三方库的包名（Gson、 LeakCanary 和 AOP 有冲突）
+//        // 否则就会起冲突：ClassNotFoundException: Didn't find class on path: DexPathList
+//        exclude 'androidx', 'com.google'
+//    }
+//
+    aspectjx {
+        //是否开启AspectJX功能
+        enabled true
+        // log4j
+        exclude 'org.apache'
     }
 }
 
 dependencies {
+    //编译libs目录下的所有jar包
     implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.core:core-ktx:1.3.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.core:core-ktx:1.3.1'
+    implementation 'androidx.annotation:annotation:1.1.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
-    implementation 'com.hjq:xxpermissions:6.2'
-//    implementation 'com.tencent.tbs.tbssdk:sdk:43903'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.coordinatorlayout:coordinatorlayout:1.1.0'
+    implementation 'com.google.android.material:material:1.3.0-alpha02'
+    //权限请求框架：https://github.com/getActivity/XXPermissions
+    implementation 'com.hjq:xxpermissions:6.5'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.12'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    //腾讯浏览服务 WebView
     implementation files('libs/tbs_sdk_thirdapp_v4.3.0.3_43903_sharewithdownloadwithfile_withoutGame_obfs_20200402_121309.jar')
+    //蒙层引导页
+    implementation 'com.binioter:guideview:1.0.0'
+    //json动画解析库：https://github.com/airbnb/lottie-android
+    //动画资源：https://lottiefiles.com、https://icons8.com/animated-icons
+    implementation 'com.airbnb.android:lottie:3.4.1'
+    implementation 'me.majiajie:pager-bottom-tab-strip:2.3.0X'
+    //log日志工具类，支持写入文件
+    implementation 'org.apache.logging.log4j:log4j-api:2.13.3'
+    //    implementation 'org.apache.logging.log4j:log4j-core:2.13.3'
+    //aspectjx地址：https://github.com/HujiangTechnology/gradle_plugin_android_aspectjx
+    //    implementation 'org.aspectj:aspectjrt:1.9.5'
+    implementation 'com.github.cdck:SingleClick:1.1'
+    //RecyclerViewAdapter封装库：https://github.com/CymChad/BaseRecyclerViewAdapterHelper
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.46'
+    //炫酷菜单UI：https://github.com/Nightonke/BoomMenu
+    implementation 'com.nightonke:boommenu:2.1.1'
 
-    implementation 'com.github.GrenderG:Toasty:1.4.2'
+//    implementation 'com.itextpdf:itext7-core:7.1.13'
+
+    //    implementation 'com.itextpdf:itextpdf:5.5.13'
+    //    implementation 'com.itextpdf:itext-asian:5.2.0'
+//    implementation files('libs/iTextpdf.jar')
+
+    //基础工具类大全：https://github.com/Blankj/AndroidUtilCode
+    implementation 'com.blankj:utilcodex:1.30.4'
 }

@@ -10,4 +10,20 @@
         <!-- 菜单间的间距角度 -->
         <attr name="spacingAngle" format="integer" />
     </declare-styleable>
+
+<!--    <declare-styleable name="CustomView2">-->
+<!--        <attr name="numbers" format="integer" />-->
+<!--        <attr name="centreColor" format="color" />-->
+<!--        <attr name="centreClickColor" format="color" />-->
+<!--        <attr name="areaColor" format="color" />-->
+<!--        <attr name="areaClickColor" format="color" />-->
+<!--    </declare-styleable>-->
+
+    <declare-styleable name="CustomView3">
+        <attr name="numbers" format="integer" />
+        <attr name="centreColor" format="color" />
+        <attr name="centreClickColor" format="color" />
+        <attr name="areaColor" format="color" />
+        <attr name="areaClickColor" format="color" />
+    </declare-styleable>
 </resources>

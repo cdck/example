@@ -23,15 +23,10 @@ class TreeSingleAdapter(
 ) :
     RecyclerView.Adapter<TreeSingleAdapter.ViewHolder>() {
     private var listener: RvItemClick? = null
-    private var selectedId = 0
     fun setListener(listener: RvItemClick?) {
         this.listener = listener
     }
 
-    fun setSelect(id: Int) {
-        selectedId = id
-        notifyDataSetChanged()
-    }
 
     class ViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
@@ -56,22 +51,24 @@ class TreeSingleAdapter(
         val info = datas[position]
         holder.tv.text = info.name
         holder.iv.isSelected = info.isExpand
+        if (info.children == null || info.children!!.size == 0) {
+            holder.iv.visibility = View.INVISIBLE
+        } else {
+            holder.iv.visibility = View.VISIBLE
+        }
         holder.root_view.setPadding(info.level * 30 - 30, 0, 0, 0)
         holder.itemView.setOnClickListener {
-//            if (listener != null) {
-//                listener!!.onItemClick(position, info)
-//            }
-            if (info.children != null || info.children.size > 0) {
+            if (info.children != null && info.children!!.size > 0) {
                 if (info.isExpand) shrink(info)
                 else expand(info)
             }
         }
     }
 
-    fun expand(info: TreeInfos) {
+    private fun expand(info: TreeInfos) {
         info.isExpand = true
         val start = datas.indexOf(info)
-        info.children.forEachIndexed { index, info ->
+        info.children!!.forEachIndexed { index, info ->
             datas.add(start + index + 1, info)
             if (info.isExpand) {
                 expand(info)
@@ -80,11 +77,11 @@ class TreeSingleAdapter(
         notifyDataSetChanged()
     }
 
-    fun shrink(info: TreeInfos) {
+    private fun shrink(info: TreeInfos) {
         info.isExpand = false
         datas.forEach {
             if (it.pid == info.id) {
-                if (it.children != null && it.children.isNotEmpty() && it.isExpand) {
+                if (it.children != null && it.children!!.isNotEmpty() && it.isExpand) {
                     shrink(it)
                 }
                 datas.remove(it)

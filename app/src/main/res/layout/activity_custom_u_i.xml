@@ -4,29 +4,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#A6A6A6"
+    android:gravity="center"
     android:orientation="horizontal"
     tools:context=".ui.activity.CustomUIActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ui_rv"
-        android:layout_width="200dp"
-        android:layout_height="match_parent" />
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
 
     <xlk.demo.test.ui.CustomClock
         android:id="@+id/custom_clock"
         android:layout_width="300dp"
-        android:visibility="gone"
-        android:layout_height="300dp" />
-
-    <xlk.demo.test.ui.CustomMenu
-        android:id="@+id/custom_menu"
-        android:layout_width="300dp"
         android:layout_height="300dp"
+        android:visibility="gone" />
+
+    <xlk.demo.test.ui.activity.CircleView
+        android:id="@+id/circle_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+    <xlk.demo.test.ui.CircularMenu
+        android:id="@+id/custom_menu"
+        android:layout_width="400dp"
+        android:layout_height="400dp"
         android:visibility="visible"
-        app:colorPressed="#00BCD4"
-        app:colorUnPressed="#8BC34A"
-        app:count="300"
-        app:spacingAngle="1" />
+        app:spacingAngle="2" />
 
     <xlk.demo.test.ui.RemoteControlMenu
         android:id="@+id/remote_custom_menu"
@@ -44,6 +50,33 @@
         app:areaColor="#266c16"
         app:centreClickColor="#e413ff"
         app:centreColor="#3cdbd6"
-        app:numbers="5" />
+        app:numbers="7" />
 
+    <xlk.demo.test.ui.CustomView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+    <xlk.demo.test.ui.CircleMenuLayout
+        android:id="@+id/id_menulayout"
+        android:layout_width="400dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/shape_menu_bg"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:id="@id/id_circle_menu_item_center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:drawableTop="@drawable/back_s"
+                android:gravity="center"
+                android:text="返回"
+                android:textColor="@color/black" />
+        </RelativeLayout>
+    </xlk.demo.test.ui.CircleMenuLayout>
 </LinearLayout>

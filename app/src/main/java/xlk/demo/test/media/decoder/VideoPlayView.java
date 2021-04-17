@@ -1,11 +1,13 @@
-package xlk.demo.test.media;
+package xlk.demo.test.media.decoder;
 
 import android.content.Context;
-import android.os.Environment;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+
+import xlk.demo.test.media.decoder.SoundDecodeThread;
+import xlk.demo.test.media.decoder.VideoDecodeThread;
 
 /**
  * @author by xlk

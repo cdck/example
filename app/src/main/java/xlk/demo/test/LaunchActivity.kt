@@ -8,6 +8,7 @@ import android.provider.MediaStore
 import android.util.Log.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.blankj.utilcode.util.UriUtils
 import com.hjq.permissions.OnPermission
 import com.hjq.permissions.XXPermissions
 import kotlinx.android.synthetic.main.activity_launch.*
@@ -15,18 +16,22 @@ import xlk.demo.test.MyApplication.Companion.successful
 import xlk.demo.test.annotation.Mp3Activity
 import xlk.demo.test.camera2.Camera2Activity
 import xlk.demo.test.camera2.Camera2Util
+import xlk.demo.test.camera2.CameraXActivity
+import xlk.demo.test.email.EmailActivity
+import xlk.demo.test.ini.IniActivity
 import xlk.demo.test.itext.ITextActivity
 import xlk.demo.test.material.design.DesignActivity
-import xlk.demo.test.media.PlayActivity
-import xlk.demo.test.media.VideoPlayView.strVideo
+import xlk.demo.test.media.decoder.JfVideoSupUtil
+import xlk.demo.test.media.decoder.PlayActivity
+import xlk.demo.test.media.decoder.VideoPlayView.strVideo
 import xlk.demo.test.navigation.NavigationBarActivity
 import xlk.demo.test.rxjava.RxJavaActivity
+import xlk.demo.test.scan.ScanCodeActivity
 import xlk.demo.test.tbs.TbsFileActivity
 import xlk.demo.test.tbs.WebActivity
 import xlk.demo.test.tree.TreeListActivity
 import xlk.demo.test.ui.activity.CustomUIActivity
 import xlk.demo.test.ui.activity.SeatActivity
-import xlk.demo.test.util.UriUtil
 import xlk.demo.test.util.toast
 import xlk.demo.test.wifi.WifiActivity
 
@@ -48,7 +53,11 @@ class LaunchActivity : AppCompatActivity() {
             "测试重复点击",
             "Material Design",
             "IText生成PDF",
-            "座位排布"
+            "座位排布",
+            "邮件发送",
+            "ini文件读写",
+            "二维码扫码",
+            "CameraXTest"
         )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,6 +74,7 @@ class LaunchActivity : AppCompatActivity() {
                 jump(obj[0] as String)
             }
         })
+        JfVideoSupUtil.isSupCodec("")
     }
 
     private fun applyPermissions(vararg pers: String) {
@@ -85,10 +95,10 @@ class LaunchActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
             val uri = data!!.getData();
-            val path = UriUtil.getFilePath(applicationContext, uri);
-            d(TAG, "将要播放的文件：$path")
-            path?.let {
-                strVideo = path;
+            val file = UriUtils.uri2File(uri)
+            d(TAG, "将要播放的文件：${file.absolutePath}")
+            file?.let {
+                strVideo = it.absolutePath
                 startActivity(Intent(this, PlayActivity::class.java))
             }
         }
@@ -128,6 +138,10 @@ class LaunchActivity : AppCompatActivity() {
             data[11] -> startActivity(Intent(activity, DesignActivity::class.java))
             data[12] -> startActivity(Intent(activity, ITextActivity::class.java))
             data[13] -> startActivity(Intent(activity, SeatActivity::class.java))
+            data[14] -> startActivity(Intent(activity, EmailActivity::class.java))
+            data[15] -> startActivity(Intent(activity, IniActivity::class.java))
+            data[16] -> startActivity(Intent(activity, ScanCodeActivity::class.java))
+            data[17] -> startActivity(Intent(activity, CameraXActivity::class.java))
         }
     }
 }

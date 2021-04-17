@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory
 import android.graphics.ImageFormat
 import android.hardware.camera2.*
 import android.media.ImageReader
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.HandlerThread
@@ -62,7 +63,6 @@ class Camera2Activity : AppCompatActivity(), SurfaceHolder.Callback, View.OnClic
         }
     }
 
-    @Throws(CameraAccessException::class)
     private fun initCamera() {
         val handlerThread = HandlerThread("camera2")
         handlerThread.start()
@@ -199,7 +199,7 @@ class Camera2Activity : AppCompatActivity(), SurfaceHolder.Callback, View.OnClic
         // 获取手机方向
         val rotation = windowManager.defaultDisplay.rotation
         //根据设备方向计算设置照片的方向
-        captureRequest.set(CaptureRequest.JPEG_ORIENTATION, ORIENTATIONS.get(rotation));
+        captureRequest.set(CaptureRequest.JPEG_ORIENTATION, ORIENTATIONS.get(rotation))
         mCameraCaptureSession!!.capture(captureRequest.build(), null, childHandler)
     }
 

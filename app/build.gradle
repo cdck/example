@@ -6,7 +6,7 @@ apply plugin: 'android-aspectjx'
 android {
     //编译SDK的版本
     compileSdkVersion 29
-    buildToolsVersion = '29.0.1'
+    buildToolsVersion = '29.0.3'
 
     defaultConfig {
         applicationId "xlk.demo.test"
@@ -86,13 +86,27 @@ dependencies {
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.46'
     //炫酷菜单UI：https://github.com/Nightonke/BoomMenu
     implementation 'com.nightonke:boommenu:2.1.1'
-
-//    implementation 'com.itextpdf:itext7-core:7.1.13'
-
+    //    implementation 'com.itextpdf:itext7-core:7.1.13'
     //    implementation 'com.itextpdf:itextpdf:5.5.13'
     //    implementation 'com.itextpdf:itext-asian:5.2.0'
-//    implementation files('libs/iTextpdf.jar')
-
+    //    implementation files('libs/iTextpdf.jar')
     //基础工具类大全：https://github.com/Blankj/AndroidUtilCode
-    implementation 'com.blankj:utilcodex:1.30.4'
+    implementation 'com.blankj:utilcodex:1.30.6'
+    implementation 'com.sun.mail:android-mail:1.6.0'
+    implementation 'com.sun.mail:android-activation:1.6.0'
+    implementation files('libs/ini4j-0.5.2.jar')
+    //二维码扫描：https://github.com/bingoogolapple/BGAQRCode-Android
+//    implementation 'com.github.bingoogolapple.BGAQRCode-Android:zxing:1.3.8'
+    //https://github.com/yipianfengye/android-zxingLibrary
+    implementation 'cn.yipianfengye.android:zxing-library:2.2'
+    //华为HMS扫码SDK：https://developer.huawei.com/consumer/cn/codelab/ScanKit-DefaultView/index.html#3
+    implementation 'com.huawei.hms:scan:1.3.1.300'
+
+    //https://blog.csdn.net/luo_boke/article/details/106634873
+    // CameraX core library using camera2 implementation
+    implementation "androidx.camera:camera-camera2:1.0.0-beta07"
+    // CameraX Lifecycle Library
+    implementation "androidx.camera:camera-lifecycle:1.0.0-beta07"
+    // CameraX View class
+    implementation "androidx.camera:camera-view:1.0.0-alpha14"
 }

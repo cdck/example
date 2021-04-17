@@ -22,7 +22,7 @@ fun String.longToast() {
     Toast.makeText(mContext, this, Toast.LENGTH_LONG).show()
 }
 
-fun Any.log(){
+fun Any.logd(){
     Log.d("applog", "$this")
 }
 fun Any.logi(){

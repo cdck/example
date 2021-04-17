@@ -1,7 +1,6 @@
 package xlk.demo.test.rxjava
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import io.reactivex.Observable
 import io.reactivex.Observer
@@ -9,7 +8,7 @@ import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_rx_java.*
 import xlk.demo.test.MyApplication
 import xlk.demo.test.R
-import xlk.demo.test.util.log
+import xlk.demo.test.util.logd
 import java.util.*
 
 class RxJavaActivity : AppCompatActivity() {
@@ -33,19 +32,19 @@ class RxJavaActivity : AppCompatActivity() {
         Observable.fromIterable(list)
             .subscribe(object : Observer<Int> {
                 override fun onSubscribe(d: Disposable) {
-                    "onSubscribe".log()
+                    "onSubscribe".logd()
                 }
 
                 override fun onNext(integer: Int) {
-                    "onNext $integer".log()
+                    "onNext $integer".logd()
                 }
 
                 override fun onError(e: Throwable) {
-                    "onError ${e.message}".log()
+                    "onError ${e.message}".logd()
                 }
 
                 override fun onComplete() {
-                    "onComplete".log()
+                    "onComplete".logd()
                 }
             })
     }

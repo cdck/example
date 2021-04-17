@@ -1,4 +1,4 @@
-package xlk.demo.test.media
+package xlk.demo.test.media.decoder
 
 
 import androidx.appcompat.app.AppCompatActivity

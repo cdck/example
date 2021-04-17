@@ -8,17 +8,28 @@ public class SeatBean {
     int devId;
     String devName;
     String memberName;
-    float x;//左上角x坐标
-    float y;//左上角y坐标
-    int direction;//朝向
+    /**
+     * 左上角x坐标百分比
+     */
+    float x;
+    /**
+     * 左上角y坐标百分比
+     */
+    float y;
+    /**
+     * 朝向
+     */
+    int direction;
+    boolean showPic;
 
-    public SeatBean(int devId, String devName, String memberName, float x, float y, int direction) {
+    public SeatBean(int devId, String devName, String memberName, float x, float y, int direction, boolean showPic) {
         this.devId = devId;
         this.devName = devName;
         this.memberName = memberName;
         this.x = x;
         this.y = y;
         this.direction = direction;
+        this.showPic = showPic;
     }
 
     public int getDevId() {
@@ -67,5 +78,13 @@ public class SeatBean {
 
     public void setDirection(int direction) {
         this.direction = direction;
+    }
+
+    public boolean isShowPic() {
+        return showPic;
+    }
+
+    public void setShowPic(boolean showPic) {
+        this.showPic = showPic;
     }
 }

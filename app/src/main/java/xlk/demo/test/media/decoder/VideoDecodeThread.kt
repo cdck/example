@@ -1,12 +1,12 @@
-package xlk.demo.test.media
+package xlk.demo.test.media.decoder
 
 import android.media.MediaCodec
 import android.media.MediaExtractor
 import android.media.MediaFormat
 import android.util.Log
 import android.view.Surface
-import xlk.demo.test.util.longToast
-import xlk.demo.test.util.toast
+import xlk.demo.test.util.logd
+import xlk.demo.test.util.logi
 import java.io.IOException
 import java.util.concurrent.atomic.AtomicBoolean
 
@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicBoolean
  */
 class VideoDecodeThread(surface: Surface, path: String) :
     Thread() {
-    private val TAG = "DecodingPlay-->"
+    private val TAG = "VideoDecodeThread-->"
     private val path: String
     private val surface: Surface
     private var mediaExtractor: MediaExtractor? = null
@@ -31,11 +31,10 @@ class VideoDecodeThread(surface: Surface, path: String) :
 
     private fun initMediaCodec() {
         mediaExtractor = MediaExtractor()
-        try {
-            mediaExtractor!!.setDataSource(path) // 设置数据源
-        } catch (e1: IOException) {
-            e1.printStackTrace()
-        }
+//        val fis = FileInputStream(path)
+//        val fd = fis.fd
+//        mediaExtractor!!.setDataSource(fd)
+        mediaExtractor!!.setDataSource(path) // 设置数据源
         var mimeType: String? = null
         //获取信道总数
         val trackCount = mediaExtractor!!.trackCount
@@ -64,6 +63,9 @@ class VideoDecodeThread(surface: Surface, path: String) :
     }
 
     private fun startDecode() {
+        if (mediaCodec == null) {
+            return
+        }
 //        // 输入
 //        ByteBuffer[] inputBuffers = mediaCodec.getInputBuffers(); // 用来存放目标文件的数据
 //        // 输出
@@ -174,12 +176,12 @@ class VideoDecodeThread(surface: Surface, path: String) :
             e.printStackTrace()
         } finally {
             release()
-            "视频播放完毕".longToast()
+            "视频播放完毕".logd()
         }
     }
 
     init {
-        Log.e(TAG, "VideoDecodeThread 文件路径 -->$path")
+        "VideoDecodeThread 文件路径 -->$path".logi()
         this.path = path
         this.surface = surface
     }

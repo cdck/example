@@ -23,6 +23,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="自动排列" />
+        <Button
+            android:id="@+id/btn_align_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="左侧对齐" />
+        <Button
+            android:id="@+id/btn_align_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="底部对齐" />
+
+        <Button
+            android:id="@+id/btn_1300x760"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1300x760" />
 
         <Button
             android:id="@+id/btn_1920x1080"

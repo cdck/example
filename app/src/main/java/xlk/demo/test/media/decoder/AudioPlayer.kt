@@ -1,4 +1,4 @@
-package xlk.demo.test.media
+package xlk.demo.test.media.decoder
 
 import android.media.AudioManager
 import android.media.AudioTrack

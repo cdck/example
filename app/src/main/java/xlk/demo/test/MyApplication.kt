@@ -8,7 +8,8 @@ import com.tencent.smtt.sdk.QbSdk
 import com.tencent.smtt.sdk.QbSdk.PreInitCallback
 import com.tencent.smtt.sdk.TbsDownloader
 import com.tencent.smtt.sdk.TbsListener
-import xlk.demo.test.util.log
+import com.uuzuche.lib_zxing.activity.ZXingLibrary
+import xlk.demo.test.util.logd
 import xlk.demo.test.util.longToast
 import kotlin.system.exitProcess
 
@@ -28,16 +29,17 @@ class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         mContext = applicationContext
+        ZXingLibrary.initDisplayOpinion(this);
         loadX5()
         activitys = listOf()
         registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
             override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
-                "添加${activity.localClassName}".log()
+                "添加${activity.localClassName}".logd()
                 activitys = activitys + activity
             }
 
             override fun onActivityDestroyed(activity: Activity) {
-                "删除${activity.localClassName}".log()
+                "删除${activity.localClassName}".logd()
                 activitys = activitys - activity
             }
 
@@ -61,17 +63,17 @@ class MyApplication : Application() {
 
     fun exitApp() {
         activitys.forEach {
-            "${it.localClassName}".log()
+            "${it.localClassName}".logd()
             it.finish()
         }
-        "结束进程".log()
+        "结束进程".logd()
         exitProcess(0)
     }
 
     var cb: PreInitCallback = object : PreInitCallback {
         override fun onCoreInitFinished() {
             //x5内核初始化完成回调接口，此接口回调并表示已经加载起来了x5，有可能特殊情况下x5内核加载失败，切换到系统内核。
-            "x5内核 onCoreInitFinished-->".log()
+            "x5内核 onCoreInitFinished-->".logd()
         }
 
         override fun onViewInitFinished(b: Boolean) {
@@ -79,32 +81,32 @@ class MyApplication : Application() {
             //x5內核初始化完成的回调，为true表示x5内核加载成功，否则表示x5内核加载失败，会自动切换到系统内核。
             if (b) "X5内核加载成功".longToast() else "X5内核加载失败".longToast()
             successful = b
-            "onViewInitFinished: 加载X5内核是否成功: $b".log()
+            "onViewInitFinished: 加载X5内核是否成功: $b".logd()
         }
     }
 
     private fun loadX5() {
         val canLoadX5 =
             QbSdk.canLoadX5(mContext)
-        "x5内核  是否可以加载X5内核 -->$canLoadX5".log()
+        "x5内核  是否可以加载X5内核 -->$canLoadX5".logd()
         if (canLoadX5) {
             initX5()
         } else {
             QbSdk.setDownloadWithoutWifi(true)
             QbSdk.setTbsListener(object : TbsListener {
                 override fun onDownloadFinish(i: Int) {
-                    "x5内核 onDownloadFinish -->下载X5内核：$i".log()
+                    "x5内核 onDownloadFinish -->下载X5内核：$i".logd()
                 }
 
                 override fun onInstallFinish(i: Int) {
-                    "x5内核 onInstallFinish -->安装X5内核：$i".log()
+                    "x5内核 onInstallFinish -->安装X5内核：$i".logd()
                     if (i == TbsListener.ErrorCode.INSTALL_SUCCESS_AND_RELEASE_LOCK) {
                         initX5()
                     }
                 }
 
                 override fun onDownloadProgress(i: Int) {
-                    "x5内核 onDownloadProgress -->下载X5内核：$i".log()
+                    "x5内核 onDownloadProgress -->下载X5内核：$i".logd()
                 }
             })
             Thread(Runnable {

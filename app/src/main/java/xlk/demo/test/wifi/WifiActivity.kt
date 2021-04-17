@@ -162,8 +162,8 @@ class WifiActivity : AppCompatActivity(), View.OnClickListener {
         clean_log.setOnClickListener(this)
         initFilter()
         wifiManager = application.getSystemService(WIFI_SERVICE) as WifiManager
-        wifiManager.isWifiEnabled = true//开启WiFi
-        wifiManager.configuredNetworks.forEach {
+        wifiManager!!.isWifiEnabled = true//开启WiFi
+        wifiManager!!.configuredNetworks.forEach {
             d(TAG, "configuredNetworks 当前WiFi信息：${it.toString()}")
             it.allowedAuthAlgorithms//获取IEEE 802.11的加密方法
             it.allowedGroupCiphers//获取组密钥

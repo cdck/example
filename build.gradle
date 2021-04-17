@@ -6,12 +6,11 @@ buildscript {
         maven { url 'https://maven.aliyun.com/repository/google' }
         maven { url 'https://maven.aliyun.com/repository/jcenter' }
         maven { url 'https://maven.aliyun.com/repository/public' }
-        google()
-        jcenter()
+        maven {url 'https://developer.huawei.com/repo/'}
         
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.3'
+        classpath 'com.android.tools.build:gradle:4.1.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.hujiang.aspectjx:gradle-android-plugin-aspectjx:2.0.10'
 
@@ -25,9 +24,8 @@ allprojects {
         maven { url 'https://maven.aliyun.com/repository/google' }
         maven { url 'https://maven.aliyun.com/repository/jcenter' }
         maven { url 'https://maven.aliyun.com/repository/public' }
-        google()
-        jcenter()
         maven { url "https://jitpack.io" }
+        maven {url 'https://developer.huawei.com/repo/'}
     }
 }
 

@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".media.PlayActivity">
+    tools:context=".media.decoder.PlayActivity">
 
-    <xlk.demo.test.media.VideoPlayView
+    <xlk.demo.test.media.decoder.VideoPlayView
         android:id="@+id/video_play_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

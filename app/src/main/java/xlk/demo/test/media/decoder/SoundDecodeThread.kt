@@ -1,11 +1,11 @@
-package xlk.demo.test.media
+package xlk.demo.test.media.decoder
 
 import android.media.AudioFormat
 import android.media.MediaCodec
 import android.media.MediaExtractor
 import android.media.MediaFormat
 import android.util.Log
-import xlk.demo.test.util.toast
+import xlk.demo.test.util.loge
 import java.io.IOException
 
 /**
@@ -20,6 +20,9 @@ class SoundDecodeThread(private val path: String) : Thread() {
         try {
             val mediaExtractor = MediaExtractor()
             try {
+//                val fis = FileInputStream(path)
+//                val fd = fis.fd
+//                mediaExtractor.setDataSource(fd)
                 mediaExtractor.setDataSource(path) // 设置数据源
             } catch (e1: IOException) {
                 e1.printStackTrace()
@@ -153,7 +156,7 @@ class SoundDecodeThread(private val path: String) : Thread() {
             mediaCodec!!.release()
             mediaExtractor.release()
         } catch (e: Exception) {
-            "无法对音频解码".toast()
+            "无法对音频解码".loge()
             e.printStackTrace()
         }
     }
